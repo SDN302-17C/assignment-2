@@ -20,7 +20,7 @@ app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
 app.get("/", (req, res) => {
-  res.render("../src/views/main.ejs", { title: "Home Page" });
+  res.render("main", { title: "Home Page" });
 });
 
 connectDB().then(() => {
