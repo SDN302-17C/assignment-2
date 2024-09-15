@@ -1,0 +1,12 @@
+<%- include('../commons/header.ejs') %>
+<h1>Quiz List</h1>
+<a href="/quizzes/new-quiz" class="btn btn-primary">Add New Quiz</a>
+<ul>
+  <% quizzes.forEach(quiz => { %>
+    <li>
+      <a href="/quizzes/<%= quiz._id %>"><%= quiz.title %></a>
+      <a href="/quizzes/<%= quiz._id %>/edit" class="btn btn-secondary btn-sm">Edit</a>
+    </li>
+  <% }) %>
+</ul>
+<%- include('../commons/footer.ejs') %>

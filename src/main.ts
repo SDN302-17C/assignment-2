@@ -25,6 +25,6 @@ app.get("/", (req, res) => {
 
 connectDB().then(() => {
   app.listen(server.port, () => {
-    console.log(`Server is running on http://${server.host}:${server.port}/`);
+    console.log(`Server is running on ${server.serverUrl}/`);
   });
 });

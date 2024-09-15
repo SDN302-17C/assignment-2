@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import { Question } from '../models/Question';
-import handleError from '../utils/HandleError';
+import { Question } from '../../models/Question';
+import handleError from '../../utils/HandleError';
 
 // GET /questions
 export const getAllQuestions = async (req: Request, res: Response): Promise<void> => {
