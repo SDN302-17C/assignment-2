@@ -12,6 +12,16 @@ export const getAllQuestions = async (req: Request, res: Response): Promise<void
     }
 };
 
+// GET /questions
+export const getQuestionByID = async (req: Request, res: Response): Promise<void> => {
+    try {
+        const questions = await Question.findById(req.params['questionId']);
+        res.json(questions);
+    } catch (error: any) {
+        handleError(res, error);
+    }
+};
+
 // POST /questions
 export const createQuestion = async (req: Request, res: Response): Promise<void> => {
     try {
@@ -26,7 +36,7 @@ export const createQuestion = async (req: Request, res: Response): Promise<void>
 // PUT /questions/:questionId
 export const updateQuestion = async (req: Request, res: Response): Promise<void> => {
     try {
-        const question = await Question.findByIdAndUpdate(req.params.questionId, req.body, { new: true });
+        const question = await Question.findByIdAndUpdate(req.params['questionId'], req.body, { new: true });
         question ? res.json(question) : res.status(404).json({ message: 'Question not found' });
     } catch (error: any) {
         handleError(res, error);
@@ -36,7 +46,7 @@ export const updateQuestion = async (req: Request, res: Response): Promise<void>
 // DELETE /questions/:questionId
 export const deleteQuestion = async (req: Request, res: Response): Promise<void> => {
     try {
-        const question = await Question.findByIdAndDelete(req.params.questionId);
+        const question = await Question.findByIdAndDelete(req.params['questionId']);
         question ? res.status(204).send() : res.status(404).json({ message: 'Question not found' });
     } catch (error: any) {
         handleError(res, error);

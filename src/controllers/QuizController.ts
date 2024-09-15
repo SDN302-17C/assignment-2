@@ -16,7 +16,7 @@ export const getAllQuizzes = async (req: Request, res: Response): Promise<void> 
 // GET /quizzes/:quizId
 export const getQuizById = async (req: Request, res: Response): Promise<void> => {
     try {
-        const quiz = await Quiz.findById(req.params.quizId).populate('questions');
+        const quiz = await Quiz.findById(req.params['quizId']).populate('questions');
         quiz ? res.json(quiz) : res.status(404).json({ message: 'Quiz not found' });
     } catch (error) {
         handleError(res, error);
@@ -37,7 +37,7 @@ export const createQuiz = async (req: Request, res: Response): Promise<void> => 
 // PUT /quizzes/:quizId
 export const updateQuiz = async (req: Request, res: Response): Promise<void> => {
     try {
-        const quiz = await Quiz.findByIdAndUpdate(req.params.quizId, req.body, { new: true });
+        const quiz = await Quiz.findByIdAndUpdate(req.params['quizId'], req.body, { new: true });
         quiz ? res.json(quiz) : res.status(404).json({ message: 'Quiz not found' });
     } catch (error) {
         handleError(res, error);
@@ -47,7 +47,7 @@ export const updateQuiz = async (req: Request, res: Response): Promise<void> => 
 // DELETE /quizzes/:quizId
 export const deleteQuiz = async (req: Request, res: Response): Promise<void> => {
     try {
-        await Quiz.findByIdAndDelete(req.params.quizId);
+        await Quiz.findByIdAndDelete(req.params['quizId']);
         res.status(204).send();
     } catch (error) {
         handleError(res, error);
@@ -59,7 +59,7 @@ export const getQuizByKeyword = async (req: Request, res: Response): Promise<voi
     try {
         const keywords = ['capital'];
         const regex = new RegExp(keywords.join('|'), 'i');
-        const quiz = await Quiz.findById(req.params.quizId).populate({
+        const quiz = await Quiz.findById(req.params['quizId']).populate({
             path: 'questions',
             match: { keywords: { $regex: regex } }
         });
@@ -74,7 +74,7 @@ export const addQuestionToQuiz = async (req: Request, res: Response): Promise<vo
     try {
         const question = new Question(req.body);
         await question.save();
-        const quiz = await Quiz.findById(req.params.quizId);
+        const quiz = await Quiz.findById(req.params['quizId']);
         if (!quiz) {
             res.status(404).json({ message: 'Quiz not found' });
             return;
@@ -91,12 +91,12 @@ export const addQuestionToQuiz = async (req: Request, res: Response): Promise<vo
 export const addQuestionsToQuiz = async (req: Request, res: Response): Promise<void> => {
     try {
         const questions = await Question.insertMany(req.body);
-        const quiz = await Quiz.findById(req.params.quizId);
+        const quiz = await Quiz.findById(req.params['quizId']);
         if (!quiz) {
             res.status(404).json({ message: 'Quiz not found' });
             return;
         }
-        quiz.questions.push(...questions.map(q => q._id));
+        quiz.questions.push(...questions.map(q => q['_id']));
         await quiz.save();
         res.status(201).json(questions);
     } catch (error) {
