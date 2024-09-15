@@ -20,13 +20,13 @@
 ### Install dependencies:
 
 ```bash
-pnpm i
+yarn
 ```
 
 ### Run:
 
 ```bash
-pnpm dev
+yarn dev
 ```
 
 <br>
