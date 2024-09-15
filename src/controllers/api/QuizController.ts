@@ -118,15 +118,16 @@ export const addQuestionsToQuiz = async (
   res: Response
 ): Promise<void> => {
   try {
-    const questions = await Question.insertMany(req.body);
+    const questions = req.body.map((q: any) => new Question(q));
+    const newQuestions = await Question.insertMany(questions);
     const quiz = await Quiz.findById(req.params["quizId"]);
     if (!quiz) {
       res.status(404).json({ message: "Quiz not found" });
       return;
     }
-    quiz.questions.push(...questions.map((q) => q["_id"]));
+    quiz.questions.push(...newQuestions.map((q) => q["_id"]));
     await quiz.save();
-    res.status(201).json(questions);
+    res.status(201).json(newQuestions);
   } catch (error) {
     handleError(res, error);
   }
