@@ -29,9 +29,6 @@ pnpm i
 pnpm dev
 ```
 
-### Test:
-- [Click here!!!](test/TestAPI.md)
-
 <br>
 
 ## Contributor
