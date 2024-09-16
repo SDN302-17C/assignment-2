@@ -43,19 +43,32 @@
                         </div>
                     <% }); %>
                 </div>
-                <a href="/quizzes/<%= quiz._id %>/edit" class="btn btn-secondary mt-3">
-                    <i class="fas fa-edit"></i> Edit
-                </a>
-                <form action="/quizzes/<%= quiz._id %>?_method=DELETE" method="POST" class="d-inline">
-                    <button type="submit" class="btn btn-danger mt-3">
-                        <i class="fas fa-trash"></i> Delete
+                <div class="d-flex justify-content-between mt-3">
+                    <button type="button" class="btn btn-secondary" id="backButton">
+                        <i class="fas fa-arrow-left"></i> Back
                     </button>
-                </form>
+                    <div>
+                        <a href="/quizzes/<%= quiz._id %>/edit" class="btn btn-warning mr-2">
+                            <i class="fas fa-edit"></i> Edit
+                        </a>
+                        <form action="/quizzes/<%= quiz._id %>?_method=DELETE" method="POST" class="d-inline">
+                            <button type="submit" class="btn btn-danger">
+                                <i class="fas fa-trash"></i> Delete
+                            </button>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
     <%- include ('../commons/footer.ejs') %>
+
+    <script>
+        document.getElementById('backButton').addEventListener('click', function() {
+            window.history.back();
+        });
+    </script>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>

@@ -7,7 +7,6 @@
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
-
 </head>
 <body>
     <%- include ('../commons/header.ejs') %>
@@ -25,15 +24,38 @@
                         </div>
                     <% }); %>
                 </div>
-                <a href="/questions/<%= question._id %>/edit" class="btn btn-secondary mt-3"> <i class="fas fa-edit"></i> Edit</a>
-                <form action="/questions/<%= question._id %>?_method=DELETE" method="POST" class="d-inline">
-                    <button type="submit" class="btn btn-danger mt-3"><i class="fas fa-trash"></i> Delete</button>
-                </form>
+                <p class="card-text mt-3"><strong>Keywords:</strong></p>
+                <div>
+                    <% question.keywords.forEach(keyword => { %>
+                        <span class="badge badge-primary mr-1 p-2"><%= keyword %></span>
+                    <% }); %>
+                </div>
+                <div class="d-flex justify-content-between mt-3">
+                    <button type="button" class="btn btn-secondary" id="backButton">
+                        <i class="fas fa-arrow-left"></i> Back
+                    </button>
+                    <div>
+                        <a href="/questions/<%= question._id %>/edit" class="btn btn-warning mr-2">
+                            <i class="fas fa-edit"></i> Edit
+                        </a>
+                        <form action="/questions/<%= question._id %>?_method=DELETE" method="POST" class="d-inline">
+                            <button type="submit" class="btn btn-danger">
+                                <i class="fas fa-trash"></i> Delete
+                            </button>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
     <%- include ('../commons/footer.ejs') %>
+
+    <script>
+        document.getElementById('backButton').addEventListener('click', function() {
+            window.history.back();
+        });
+    </script>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
