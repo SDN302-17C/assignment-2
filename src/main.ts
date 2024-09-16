@@ -25,7 +25,11 @@ app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
 app.get("/", (req, res) => {
-  res.render("main", { title: "Home Page" });
+  res.redirect("/quizzes");
+});
+
+app.get("/quizzes", (req, res) => {
+  res.render("quizzes/list", { title: "Home" });
 });
 
 connectDB().then(() => {

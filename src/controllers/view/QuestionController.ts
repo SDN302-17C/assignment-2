@@ -28,7 +28,7 @@ export const getQuestionByID = async (req: Request, res: Response): Promise<void
 };
 
 export const createQuestion = (req: Request, res: Response): void => {
-    res.render('questions/new');
+    res.render('questions/create');
 };
 
 export const editQuestion = async (req: Request, res: Response): Promise<void> => {
