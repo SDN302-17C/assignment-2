@@ -33,8 +33,8 @@ export const createQuestion = (req: Request, res: Response): void => {
 
 export const editQuestion = async (req: Request, res: Response): Promise<void> => {
     try {
-        const response = await axiosInstance.get(`${SERVER_URL}/questions/${req.params['questionId']}`);
-        res.render('question/edit', { question: response.data });
+        const response = await axiosInstance.get(`${SERVER_URL}/api/questions/${req.params['questionId']}`);
+        res.render('questions/edit', { question: response.data });
     } catch (error: any) {
         handleError(res, error);
     }

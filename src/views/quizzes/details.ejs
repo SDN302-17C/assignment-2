@@ -44,9 +44,9 @@
                     <% }); %>
                 </div>
                 <div class="d-flex justify-content-between mt-3">
-                    <button type="button" class="btn btn-secondary" id="backButton">
+                    <a href="/quizzes" class="btn btn-secondary">
                         <i class="fas fa-arrow-left"></i> Back
-                    </button>
+                    </a>
                     <div>
                         <a href="/quizzes/<%= quiz._id %>/edit" class="btn btn-warning mr-2">
                             <i class="fas fa-edit"></i> Edit
@@ -63,12 +63,6 @@
     </div>
 
     <%- include ('../commons/footer.ejs') %>
-
-    <script>
-        document.getElementById('backButton').addEventListener('click', function() {
-            window.history.back();
-        });
-    </script>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Question</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <style>
+        .required-label::after {
+            content: " *";
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <%- include ('../commons/header.ejs') %>
+
+    <div class="container mt-5 mb-4 pt-5 pb-5">
+        <h1 class="text-center mb-4">Edit Question</h1>
+        <div class="card">
+            <div class="card-body">
+                <form id="questionForm" method="POST" action="/api/questions/<%= question._id %>?_method=PUT">
+                    <div class="form-group">
+                        <label for="text" class="required-label">Text</label>
+                        <input type="text" class="form-control" id="text" name="text" value="<%= question.text %>" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="options" class="required-label">Options (separate by ";")</label>
+                        <input type="text" class="form-control" id="options" name="options" value="<%= question.options.join('; ') %>" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="keywords">Keywords (separate by ";")</label>
+                        <input type="text" class="form-control" id="keywords" name="keywords" value="<%= question.keywords.join('; ') %>">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="correctAnswer" class="required-label">Correct Answer</label>
+                        <select class="form-control" id="correctAnswer" name="correctAnswer" required>
+                            <option value="" disabled>-- Select your correct answer --</option>
+                            <% question.options.forEach((option, index) => { %>
+                                <option value="<%= index %>" <%= question.correctAnswerIndex === index ? 'selected' : '' %>><%= option %></option>
+                            <% }); %>
+                        </select>
+                    </div>
+
+                    <div class="d-flex justify-content-between mt-3">
+                        <button type="button" class="btn btn-secondary" id="backButton">
+                            <i class="fas fa-arrow-left"></i> Back
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> Update Question
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <%- include ('../commons/footer.ejs') %>
+
+    <script>
+        document.getElementById('options').addEventListener('input', function() {
+            const options = this.value.split(';').map(option => option.trim());
+            const correctAnswerSelect = document.getElementById('correctAnswer');
+            correctAnswerSelect.innerHTML = '<option value="" disabled>-- Select your correct answer --</option>';
+            options.forEach((option, index) => {
+                correctAnswerSelect.innerHTML += `<option value="${index}">${option}</option>`;
+            });
+        });
+
+        document.getElementById('questionForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const question = {
+                text: document.getElementById('text').value,
+                options: document.getElementById('options').value.split(';').map(option => option.trim()),
+                keywords: document.getElementById('keywords').value.split(';').map(keyword => keyword.trim()),
+                correctAnswerIndex: parseInt(document.getElementById('correctAnswer').value)
+            };
+
+            fetch('/api/questions/<%= question._id %>?_method=PUT', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(question)
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert('Question updated successfully!');
+                window.location.href = '/questions/<%= question._id %>';
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+
+        document.getElementById('backButton').addEventListener('click', function() {
+            window.history.back();
+        });
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
