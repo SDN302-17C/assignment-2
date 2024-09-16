@@ -7,11 +7,13 @@ import quizRoutes from "./routes/view/QuizRoutes";
 import questionRoutes from "./routes/view/QuestionRoutes";
 import connectDB from "./config/ConnectDatabase";
 import { server } from "./config/ConfigServer";
+import methodOverride from 'method-override';
 
 const app = express();
 
 app.disable("x-powered-by");
 
+app.use(methodOverride('_method'));
 app.use(express.json());
 app.use(morgan("dev"));
 
@@ -25,11 +27,7 @@ app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
 app.get("/", (req, res) => {
-  res.redirect("/quizzes");
-});
-
-app.get("/quizzes", (req, res) => {
-  res.render("quizzes/list", { title: "Home" });
+  res.render("index", { title: "Home Page" });
 });
 
 connectDB().then(() => {

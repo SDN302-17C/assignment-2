@@ -1,4 +1,5 @@
 import express from "express";
+import methodOverride from 'method-override';
 import {
   getAllQuizzes,
   getQuizById,
@@ -10,6 +11,8 @@ import {
 } from "../../controllers/view/QuizController";
 
 const router = express.Router();
+
+router.use(methodOverride('_method'));
 
 router.get("/", getAllQuizzes);
 router.get("/new", createQuiz);

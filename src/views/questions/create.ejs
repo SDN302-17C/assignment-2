@@ -15,7 +15,7 @@
 <body>
     <%- include ('../commons/header.ejs') %>
 
-    <div class="container mt-5">
+    <div class="container mt-5 mb-4 pt-5 pb-5">
         <h1 class="text-center mb-4">Create a New Question</h1>
         <form id="questionForm" method="POST" action="/api/questions">
             <div class="form-group">
@@ -43,6 +43,8 @@
             <button type="submit" class="btn btn-primary">Create Question</button>
         </form>
     </div>
+
+    <%- include ('../commons/footer.ejs') %>
 
     <script>
         document.getElementById('options').addEventListener('input', function() {

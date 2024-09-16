@@ -39,3 +39,12 @@ export const editQuestion = async (req: Request, res: Response): Promise<void> =
         handleError(res, error);
     }
 };
+
+export const deleteQuestionById = async (req: Request, res: Response): Promise<void> => {
+    try {
+        await axiosInstance.delete(`${SERVER_URL}/api/questions/${req.params['questionId']}`);
+        res.redirect('/questions');
+    } catch (error: any) {
+        handleError(res, error);
+    }
+};
