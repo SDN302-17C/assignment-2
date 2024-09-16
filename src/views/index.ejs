@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <%- include ('./commons/header.ejs') %>
+
+    <div class="container mt-5">
+        <div class="jumbotron text-center">
+            <h1 class="display-4">Welcome to the Question Bank Management Application</h1>
+            <p class="lead">Manage your quizzes and questions efficiently and effectively.</p>
+            <hr class="my-4">
+            <p>Use the buttons below to navigate to the respective management sections.</p>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card text-center shadow-sm mb-4">
+                    <div class="card-body">
+                        <h4 class="card-title">Quiz Management</h4>
+                        <ul class="list-unstyled">
+                            <li>Manage your quizzes, including:</li>
+                            <li>- Adding quiz</li>
+                            <li>- Editing quiz</li>
+                            <li>- Deleting quiz</li>
+                            <li>- Viewing quiz details</li>
+                        </ul>
+                        <a href="/quizzes" class="btn btn-primary mt-3">Go to Quiz Management</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card text-center shadow-sm mb-4">
+                    <div class="card-body">
+                        <h4 class="card-title">Question Management</h4>
+                        <ul class="list-unstyled">
+                            <li>Manage your questions, including:</li>
+                            <li>- Adding question</li>
+                            <li>- Editing question</li>
+                            <li>- Deleting question</li>
+                            <li>- Viewing question details</li>
+                        </ul>
+                        <a href="/questions" class="btn btn-primary mt-3">Go to Question Management</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%- include ('./commons/footer.ejs') %>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
