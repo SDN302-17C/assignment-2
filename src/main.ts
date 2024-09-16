@@ -1,8 +1,10 @@
 import express from "express";
 import morgan from "morgan";
 import path from "path";
-import quizRoutes from "./routes/api/QuizRoutes";
-import questionRoutes from "./routes/api/QuestionRoutes";
+import quizAPI from "./routes/api/QuizRoutes";
+import questionAPI from "./routes/api/QuestionRoutes";
+import quizRoutes from "./routes/view/QuizRoutes";
+import questionRoutes from "./routes/view/QuestionRoutes";
 import connectDB from "./config/ConnectDatabase";
 import { server } from "./config/ConfigServer";
 
@@ -12,6 +14,9 @@ app.disable("x-powered-by");
 
 app.use(express.json());
 app.use(morgan("dev"));
+
+app.use("/api/quizzes", quizAPI);
+app.use("/api/questions", questionAPI);
 
 app.use("/quizzes", quizRoutes);
 app.use("/questions", questionRoutes);

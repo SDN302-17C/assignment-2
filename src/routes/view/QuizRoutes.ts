@@ -3,14 +3,20 @@ import {
   getAllQuizzes,
   getQuizById,
   createQuiz,
-editQuiz
+  postQuiz,
+  editQuiz,
+  updateQuiz,
+  deleteQuiz
 } from "../../controllers/view/QuizController";
 
 const router = express.Router();
 
 router.get("/", getAllQuizzes);
-router.get("/view", getQuizById);
-router.post("/new", createQuiz);
-router.put("/edit", editQuiz);
+router.get("/new", createQuiz);
+router.post("/", postQuiz);
+router.get("/:quizId", getQuizById);
+router.get("/:quizId/edit", editQuiz);
+router.put("/:quizId", updateQuiz);
+router.delete("/:quizId", deleteQuiz);
 
 export default router;

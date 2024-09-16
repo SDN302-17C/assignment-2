@@ -9,8 +9,9 @@ const axiosInstance = axios.create({
 
 export const getAllQuestions = async (req: Request, res: Response): Promise<void> => {
     try {
-        const response = await axiosInstance.get(`${SERVER_URL}/questions`);
-        res.render('questions/list', { questions: response.data });
+        const response = await axiosInstance.get(`${SERVER_URL}/api/questions`);
+        const questions = response.data;
+        res.render('questions/list', { questions: questions });
     } catch (error: any) {
         handleError(res, error);
     }
@@ -19,14 +20,14 @@ export const getAllQuestions = async (req: Request, res: Response): Promise<void
 export const getQuestionByID = async (req: Request, res: Response): Promise<void> => {
     try {
         const response = await axiosInstance.get(`${SERVER_URL}/questions/${req.params['questionId']}`);
-        res.render('questions/detail', { question: response.data });
+        res.render('questions/details', { question: response.data });
     } catch (error: any) {
         handleError(res, error);
     }
 };
 
 export const createQuestion = (req: Request, res: Response): void => {
-    res.render('questions/new-question');
+    res.render('questions/new');
 };
 
 export const editQuestion = async (req: Request, res: Response): Promise<void> => {
