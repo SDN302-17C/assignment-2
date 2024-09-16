@@ -31,7 +31,7 @@ export const getQuizById = async (req: Request, res: Response): Promise<void> =>
 
 // GET /quizzes/new
 export const createQuiz = (req: Request, res: Response): void => {
-    res.render('quizzes/new');
+    res.render('quizzes/create');
 };
 
 // POST /quizzes

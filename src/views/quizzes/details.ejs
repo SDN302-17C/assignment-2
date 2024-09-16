@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Details</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <%- include ('../commons/header.ejs') %>
+
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Quiz Details</h1>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title"><%= quiz.title %></h5>
+                <p class="card-text"><%= quiz.description %></p>
+                <p class="card-text"><strong>Questions:</strong></p>
+                <div class="accordion" id="questionsAccordion">
+                    <% quiz.questions.forEach((question, index) => { %>
+                        <div class="card">
+                            <div class="card-header" id="heading<%= index %>">
+                                <h2 class="mb-0">
+                                    <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse<%= index %>" aria-expanded="true" aria-controls="collapse<%= index %>">
+                                        <%= question.text %>
+                                    </button>
+                                </h2>
+                            </div>
+                            <div id="collapse<%= index %>" class="collapse" aria-labelledby="heading<%= index %>" data-parent="#questionsAccordion">
+                                <div class="card-body">
+                                    <p><strong>Options:</strong></p>
+                                    <div class="list-group">
+                                        <% question.options.forEach(option => { %>
+                                            <div class="list-group-item list-group-item-action">
+                                                <%= option %>
+                                            </div>
+                                        <% }); %>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <% }); %>
+                </div>
+                <a href="/quizzes/<%= quiz._id %>/edit" class="btn btn-secondary mt-3">
+                    <i class="fas fa-edit"></i> Edit
+                </a>
+                <form action="/quizzes/<%= quiz._id %>?_method=DELETE" method="POST" class="d-inline">
+                    <button type="submit" class="btn btn-danger mt-3">
+                        <i class="fas fa-trash"></i> Delete
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <%- include ('../commons/footer.ejs') %>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
