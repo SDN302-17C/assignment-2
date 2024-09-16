@@ -18,6 +18,9 @@
 
     <div class="container mt-5 mb-4 pt-5 pb-5">
         <h1 class="text-center mb-4">Create a New Quiz</h1>
+        <div class="alert alert-success d-none" id="successAlert" role="alert">
+            Quiz created successfully!
+        </div>
         <div class="card">
             <div class="card-body">
                 <form id="quizForm" method="POST" action="/api/quizzes">
@@ -63,8 +66,11 @@
             })
             .then(response => response.json())
             .then(data => {
-                alert('Quiz created successfully!');
-                window.location.href = '/quizzes';
+                const successAlert = document.getElementById('successAlert');
+                successAlert.classList.remove('d-none');
+                setTimeout(() => {
+                    window.location.href = '/quizzes';
+                }, 2000);
             })
             .catch(error => {
                 console.error('Error:', error);

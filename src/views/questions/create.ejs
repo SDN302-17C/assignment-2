@@ -18,6 +18,9 @@
 
     <div class="container mt-5 mb-4 pt-5 pb-5">
         <h1 class="text-center mb-4">Create a New Question</h1>
+        <div class="alert alert-success d-none" id="successAlert" role="alert">
+            Question created successfully!
+        </div>
         <div class="card">
             <div class="card-body">
                 <form id="questionForm" method="POST" action="/api/questions">
@@ -86,8 +89,11 @@
             })
             .then(response => response.json())
             .then(data => {
-                alert('Question created successfully!');
-                window.location.href = '/questions';
+                const successAlert = document.getElementById('successAlert');
+                successAlert.classList.remove('d-none');
+                setTimeout(() => {
+                    window.location.href = '/questions';
+                }, 2000);
             })
             .catch(error => {
                 console.error('Error:', error);

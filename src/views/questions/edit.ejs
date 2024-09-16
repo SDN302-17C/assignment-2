@@ -18,6 +18,9 @@
 
     <div class="container mt-5 mb-4 pt-5 pb-5">
         <h1 class="text-center mb-4">Edit Question</h1>
+        <div class="alert alert-success d-none" id="successAlert" role="alert">
+            Question updated successfully!
+        </div>
         <div class="card">
             <div class="card-body">
                 <form id="questionForm" method="POST" action="/api/questions/<%= question._id %>?_method=PUT">
@@ -89,8 +92,11 @@
             })
             .then(response => response.json())
             .then(data => {
-                alert('Question updated successfully!');
-                window.location.href = '/questions/<%= question._id %>';
+                const successAlert = document.getElementById('successAlert');
+                successAlert.classList.remove('d-none');
+                setTimeout(() => {
+                    window.location.href = '/questions/<%= question._id %>';
+                }, 2000);
             })
             .catch(error => {
                 console.error('Error:', error);
