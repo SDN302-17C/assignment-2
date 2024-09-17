@@ -17,9 +17,7 @@ app.use(methodOverride('_method'));
 app.use(express.json());
 app.use(morgan("dev"));
 
-// Use path.resolve to ensure the correct path is used
 const publicPath = path.resolve(__dirname, "public");
-console.log(`Serving static files from: ${publicPath}`);
 app.use(express.static(publicPath));
 
 app.use("/api/quizzes", quizAPI);
