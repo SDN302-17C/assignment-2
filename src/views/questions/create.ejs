@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Question</title>
+    <link rel="icon" href="/img/favicon.ico" type="image/x-icon">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
     <style>
@@ -61,49 +62,7 @@
 
     <%- include ('../commons/footer.ejs') %>
 
-    <script>
-        document.getElementById('options').addEventListener('input', function() {
-            const options = this.value.split(';').map(option => option.trim());
-            const correctAnswerSelect = document.getElementById('correctAnswer');
-            correctAnswerSelect.innerHTML = '<option value="" disabled selected>-- Select your correct answer --</option>';
-            options.forEach((option, index) => {
-                correctAnswerSelect.innerHTML += `<option value="${index}">${option}</option>`;
-            });
-        });
-
-        document.getElementById('questionForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const question = {
-                text: document.getElementById('text').value,
-                options: document.getElementById('options').value.split(';').map(option => option.trim()),
-                keywords: document.getElementById('keywords').value.split(';').map(keyword => keyword.trim()),
-                correctAnswerIndex: parseInt(document.getElementById('correctAnswer').value)
-            };
-
-            fetch('/api/questions', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(question)
-            })
-            .then(response => response.json())
-            .then(data => {
-                const successAlert = document.getElementById('successAlert');
-                successAlert.classList.remove('d-none');
-                setTimeout(() => {
-                    window.location.href = '/questions';
-                }, 2000);
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-        });
-
-        document.getElementById('backButton').addEventListener('click', function() {
-            window.history.back();
-        });
-    </script>
+    <script src="/js/questions/create.js"></script>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
