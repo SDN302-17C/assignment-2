@@ -17,7 +17,10 @@ app.use(methodOverride('_method'));
 app.use(express.json());
 app.use(morgan("dev"));
 
-app.use(express.static(path.resolve(__dirname, "public")));
+// Use path.resolve to ensure the correct path is used
+const publicPath = path.resolve(__dirname, "public");
+console.log(`Serving static files from: ${publicPath}`);
+app.use(express.static(publicPath));
 
 app.use("/api/quizzes", quizAPI);
 app.use("/api/questions", questionAPI);
@@ -25,7 +28,7 @@ app.use("/api/questions", questionAPI);
 app.use("/quizzes", quizRoutes);
 app.use("/questions", questionRoutes);
 
-app.set("views", path.join(__dirname, "views"));
+app.set("views", path.resolve(__dirname, "views"));
 app.set("view engine", "ejs");
 
 app.get("/", (req, res) => {
